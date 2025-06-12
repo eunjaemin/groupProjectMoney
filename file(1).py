@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 
 records = []
 
@@ -8,15 +8,18 @@ print("x를 입력하여 종료하세요")
 while True:
     # 입력받는 부분
     date = input("날짜를 입력하세요(YYMMDD): ")
+    if date.strip() == 'x':
+        break
     item = input("항목을 입력하세요: ")
     price = input("금액을 입력하세요: ")
     category = input("분류를 입력하세요: ")
-    if date.strip() == 'x':
-        break
+    fixed = input("고정지출을 입력하세요")
+
     record = {"date": date,
               "item": item,
               "price": int(price),
-              "category": category
+              "category": category,
+              "fixed": fixed
 }
     records.append(record)
 
@@ -28,9 +31,20 @@ def get_week(date_str):
 def get_month(date_str):
     return date_str[:4]
 
+def total_this_week(records):
+    this_week = datetime.now().isocalendar()[1]
+    return sum(r['price'] for r in records if get_week(r["date"]) == this_week)
+
+def total_this_month(records):
+    this_month = datetime.now().strftime("%y%m")
+    return sum(r["price"] for r in records if get_month(r["date"]) == this_month)
+
+def fixed_expense(records):
+    return sum(r["price"] for r in records if r["fixed"])
+
 
 print("아래 기능을 사용할 수 있습니다.")
-print("이번 주 지출/이번 달 지출/주별 평균 사용량/월별 평균 사용량/고정지출 합계/잔고고려 AI 식사추천")
+print("이번 주 지출/이번 달 지출/주별 평균 지출/월별 평균 지출/고정지출 합계/잔고고려 AI 식사추천")
 
 while True:
     m = input("동작을 입력하세요")
