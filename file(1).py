@@ -2,7 +2,6 @@ from datetime import datetime
 import matplotlib.pyplot as plt
 import json
 
-
 try:
     with open("records.json", "r", encoding="utf-8") as f:
         records = json.load(f)
@@ -118,6 +117,7 @@ def draw_date_pie(records):
     plt.xlabel("날짜 (YYMMDD)")
     plt.ylabel("지출 금액 (원)")
     plt.title('날짜별 지출')
+    plt.xticks(rotation = 45)
     plt.show()
 
 print("아래 기능을 사용할 수 있습니다.")
