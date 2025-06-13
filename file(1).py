@@ -20,10 +20,8 @@ while True:
         break
     item = input("지출한 물품을 입력하세요: ")
     price = input("금액을 입력하세요: ")
-    category = input("종류를 입력하세요:\n" \
-                    "1 = 고정지출\n" \
-                    "2 = 식비\n" \
-                    "3 = 그외")
+    category = input("1 : 고정지출 / 2 : 식비 / 3 : 그 외\n종류를 입력하세요(숫자): ")
+    print("다음 물품을 입력하세요")
     record = {"date": date,
               "item": item,
               "price": int(price),
@@ -126,7 +124,7 @@ print("아래 기능을 사용할 수 있습니다.")
 
 while True:
     # 기능 리스트들과 출력하는 부분
-    m = input("동작을 입력하세요:\n"
+    m = input(
     "1 = 이번 주 지출\n"
     "2 = 이번 달 지출\n"
     "3 = 주별 평균 사용량\n"
@@ -136,7 +134,8 @@ while True:
     '7 = 월 식비 항목별 지출 비율\n'
     '8 = 월 그외 항목별 지출 비율\n'
     '9 = 해당 월 날짜별 지출\n'
-    "0 = 종료")
+    "0 = 종료\n"
+    "동작을 입력하세요: ")
 
     if m == "1":
         print(f"이번 주 지출은 {total_this_week(records)}원입니다.")
