@@ -32,6 +32,14 @@ def get_month(date_str):
 print("아래 기능을 사용할 수 있습니다.")
 print("이번 주 지출/이번 달 지출/주별 평균 사용량/월별 평균 사용량/고정지출 합계/잔고고려 AI 식사추천")
 
+from openai import OpenAI
+
+client = OpenAI(
+    base_url="https://openrouter.ai/api/v1",
+    api_key="<OPENROUTER_API_KEY>",
+)
+
+
 while True:
     m = input("동작을 입력하세요")
 
@@ -46,7 +54,25 @@ while True:
     elif m == "월별 고정지출 합계":
         print("월별 고정지출 합계는 {}원입니다.")
     elif m == "잔고고려 AI 식사추천":
-        print("오늘 식사는 {}입니다.")
+        salary = int(input('이번달 월급을 입력하세요 '))
+        total_spent = sum(r['price'] for r in records)
+        balance = salary - total_spent
+        prompt = f'내 잔고는 {balance}원이야. 오늘 식사 하나 추천해줘. 간단한 이유도 덧붙여줘'
+        completion = client.chat.completions.create(
+            extra_headers={
+                "HTTP-Referer": "<YOUR_SITE_URL>",
+                "X-Title": "<YOUR_SITE_NAME>",
+            },
+            extra_body={},
+            model="meta-llama/llama-3.3-8b-instruct:free",
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+                ]
+            )
+        print(completion.choices[0].message.content)
     elif m == ("x"):
         break
     else:
