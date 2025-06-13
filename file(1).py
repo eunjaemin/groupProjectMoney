@@ -23,7 +23,8 @@ while True:
     record = {"date": date,
               "item": item,
               "price": int(price),
-              "category": category
+              "category": category,
+              "fixed": fixed.lower() == 'y'
     }
     records.append(record)
 
