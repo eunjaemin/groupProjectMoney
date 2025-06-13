@@ -24,6 +24,7 @@ while True:
     records.append(record)
 
 
+# 프로그램 실행을 위한 함수들
 def get_week(date_str):
     date = datetime.strptime(date_str, "%y%m%d")
     return date.isocalendar()[1]
@@ -55,6 +56,7 @@ client = OpenAI(
 
 
 while True:
+    # 동작 선택/출력 기능
     m = input("동작을 입력하세요")
 
     if m == "이번 주 지출":
