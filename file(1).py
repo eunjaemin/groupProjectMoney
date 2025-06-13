@@ -30,7 +30,6 @@ def get_month(date_str):
 
 
 print("아래 기능을 사용할 수 있습니다.")
-print("이번 주 지출/이번 달 지출/주별 평균 사용량/월별 평균 사용량/고정지출 합계/잔고고려 AI 식사추천")
 
 from openai import OpenAI
 
