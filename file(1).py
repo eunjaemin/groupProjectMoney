@@ -62,6 +62,8 @@ def draw_category_pie(records):
     labels = [category_names[k] for k in category_totals]
     sizes = [category_totals[k] for k in category_totals ]
 
+    plt.rc("font", family="Malgun Gothic")
+
     plt.figure()
     plt.pie(sizes, labels=labels, autopct = '%1.1f%%')
     plt.title('종류별 지출')
@@ -80,6 +82,8 @@ def draw_item_pie(records, target):
             items_total[item] +=r['price']
     if not items_total:
         print(f'\'{category_names[target]}\'항목은 이번달 지출이 없습니다:)')
+    
+    plt.rc("font", family="Malgun Gothic")
 
     labels = list(items_total.keys())
     sizes = list(items_total.values())
@@ -103,10 +107,12 @@ def draw_date_pie(records):
         return
     
     labels = list(date_total.keys())
-    sizes = list(date_total.values())
+    values = list(date_total.values())
 
     plt.figure()
-    plt.pie(sizes, labels = labels ,autopct = '%1.1f%%')
+    plt.bar(labels,values)
+    plt.xlabel("날짜 (YYMMDD)")
+    plt.ylabel("지출 금액 (원)")
     plt.title('날짜별 지출')
     plt.show()
 
