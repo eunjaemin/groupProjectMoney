@@ -8,23 +8,20 @@ print("x를 입력하여 종료하세요")
 while True:
     # 입력받는 부분
     date = input("날짜를 입력하세요(YYMMDD): ")
-    if date.strip() == 'x':
-        break
     item = input("항목을 입력하세요: ")
     price = input("금액을 입력하세요: ")
     category = input("분류를 입력하세요: ")
-    fixed = input("고정지출을 입력하세요")
-
+    if date.strip() == 'x':
+        break
     record = {"date": date,
               "item": item,
               "price": int(price),
-              "category": category,
-              "fixed": fixed
+              "category": category
 }
     records.append(record)
 
 
-# 프로그램 실행을 위한 함수들
+# 기능 구현을 위한 함수들
 def get_week(date_str):
     date = datetime.strptime(date_str, "%y%m%d")
     return date.isocalendar()[1]
@@ -45,31 +42,37 @@ def fixed_expense(records):
 
 
 print("아래 기능을 사용할 수 있습니다.")
-print("이번 주 지출/이번 달 지출/주별 평균 지출/월별 평균 지출/고정지출 합계/잔고고려 AI 식사추천")
 
 from openai import OpenAI
 
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
-    api_key="<OPENROUTER_API_KEY>",
+    api_key="",
 )
 
 
 while True:
-    # 동작 선택/출력 기능
-    m = input("동작을 입력하세요")
+    # 기능 리스트들과 출력하는 부분
+    m = input("동작을 입력하세요:\n"
+    "1 = 이번 주 지출"
+    "2 = 이번 달 지출"
+    "3 = 주별 평균 사용량"
+    "4 = 월별 평균 사용량"
+    "5 = 월별 고정지출 합계"
+    "6 = 잔고고려 AI 식사추천"
+    "0 = 종료")
 
-    if m == "이번 주 지출":
+    if m == "1":
         print("이번 주 지출은 {}원입니다.")
-    elif m == "이번 달 지출":
+    elif m == "2":
         print("이번 달 지출은 {}원입니다.")
-    elif m == "주별 평균 사용량":
+    elif m == "3":
         print("주별 평균 사용량은 {}원입니다.")
-    elif m == "월별 평균 사용량":
+    elif m == "4":
         print("월별 평균 사용량은 {}원입니다.")
-    elif m == "월별 고정지출 합계":
+    elif m == "5":
         print("월별 고정지출 합계는 {}원입니다.")
-    elif m == "잔고고려 AI 식사추천":
+    elif m == "6":
         salary = int(input('이번달 월급을 입력하세요 '))
         total_spent = sum(r['price'] for r in records)
         balance = salary - total_spent
@@ -89,7 +92,7 @@ while True:
                 ]
             )
         print(completion.choices[0].message.content)
-    elif m == ("x"):
+    elif m == ("0"):
         break
     else:
         print("다시 입력하세요")
