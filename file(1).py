@@ -41,19 +41,26 @@ client = OpenAI(
 
 
 while True:
-    m = input("동작을 입력하세요")
+    m = input("동작을 입력하세요:\n"
+    "1 = 이번 주 지출"
+    "2 = 이번 달 지출"
+    "3 = 주별 평균 사용량"
+    "4 = 월별 평균 사용량"
+    "5 = 월별 고정지출 합계"
+    "6 = 잔고고려 AI 식사추천"
+    "0 = 종료")
 
-    if m == "이번 주 지출":
+    if m == "1":
         print("이번 주 지출은 {}원입니다.")
-    elif m == "이번 달 지출":
+    elif m == "2":
         print("이번 달 지출은 {}원입니다.")
-    elif m == "주별 평균 사용량":
+    elif m == "3":
         print("주별 평균 사용량은 {}원입니다.")
-    elif m == "월별 평균 사용량":
+    elif m == "4":
         print("월별 평균 사용량은 {}원입니다.")
-    elif m == "월별 고정지출 합계":
+    elif m == "5":
         print("월별 고정지출 합계는 {}원입니다.")
-    elif m == "잔고고려 AI 식사추천":
+    elif m == "6":
         salary = int(input('이번달 월급을 입력하세요 '))
         total_spent = sum(r['price'] for r in records)
         balance = salary - total_spent
@@ -73,7 +80,7 @@ while True:
                 ]
             )
         print(completion.choices[0].message.content)
-    elif m == ("x"):
+    elif m == ("0"):
         break
     else:
         print("다시 입력하세요")
