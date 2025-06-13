@@ -1,8 +1,14 @@
 from datetime import datetime
 import matplotlib.pyplot as plt
+import json
 
 
-records = []
+try:
+    with open("records.json", "r", encoding="utf-8") as f:
+        records = json.load(f)
+except FileNotFoundError:
+    records = []
+
 
 print("@@지출 관리 프로그램@@")
 print("날짜에 x를 입력하여 종료하세요")
@@ -150,7 +156,10 @@ while True:
         draw_item_pie(records, '3')
     elif m == '9':
         draw_date_pie(records)
-    elif m == ("0"):
+    elif m == "0":
+        with open("records.json", "w", encoding="utf-8") as f:
+            json.dump(records, f, ensure_ascii=False, indent=2)
+        print("지출 기록이 저장되었습니다.")
         break
     else:
         print("다시 입력하세요")
